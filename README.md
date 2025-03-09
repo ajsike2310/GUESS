@@ -85,8 +85,11 @@ run the file hack.ipynb and signup.html
 
 ### Project Timeline
 1 Research and dataset collection
+
 2 Backend setup and API integration
+
 3 Frontend design and testing
+
 4 Debugging and final touches
 
 ### Challenges Faced
