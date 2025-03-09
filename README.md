@@ -7,7 +7,9 @@ The official template repository for Define 3.0
 
 
 # < Project Name >
- Cover Image  If applicable
+E-Style
+![](https://github.com/ajsike2310/GUESS/blob/main/e.png)
+
 
 ### Team Information
 - **Team Name**: <Team Name> 
