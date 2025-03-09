@@ -11,16 +11,16 @@ The official template repository for Define 3.0
 
 
 ### Team Information
-- **Team Name**: <Team Name> 
-- **Track**: < Track >
+- **Team Name**: GUESS? 
+- **Track**: Sustainability
 
 ### Team Members
 | Name | Role | GitHub | LinkedIn |
 |------|------|--------|----------|
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
-| [Full Name] | [Role] | [@username](https://github.com/username) | [Profile](https://linkedin.com/in/username) |
+| Athira S | Backend | [@athxra](https://github.com/athxra) | [Profile](https://linkedin.com/in/athira-s-541957290) |
+| Avin Joy | Backend | [@ajsike2310](https://github.com/ajsike2310) | [Profile](https://linkedin.com/in/avin-joy-230237260) |
+| Chris Alex | Frontend | [@Chris42alex](https://github.com/Chris42alex) | [Profile](https://linkedin.com/in/chris-alex-a85a75290) |
+| Kevin James | Frontend | [@kevinjames005](https://github.com/kevinjames005) | [Profile](https://linkedin.com/in/kevin-james-8b0546318) |
 
 ## Project Details
 
