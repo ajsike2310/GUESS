@@ -93,8 +93,8 @@ run the file hack.ipynb and signup.html
 It was difficult to get a dataset
 
 ### Future Enhancements
-# Increase the accuracy of dataset and train model
-# Improve UI/UX experience.
+ Increase the accuracy of dataset and train model
+ Improve UI/UX experience.
 
 ### References (if any)
 -
