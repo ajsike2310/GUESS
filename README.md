@@ -33,7 +33,7 @@ The fashion industry is the second-largest polluter globally, with over 92 milli
 E-Style is a smart wardrobe solution that promotes fashion sustainability by enabling users to rent and borrow clothes effortlessly. The platform allows individuals to list their outfits for rent, find suitable attire for any occasion, and make fashion more accessible, cost-effective, and eco-friendly. With secure transactions, smart recommendations, and a seamless user experience, E-Style transforms how people engage with their wardrobes.
 
 ### Demo
-[![Project Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtu.be/d4tX5OXCeLc?si=HsFSyyIr9ReAOSsF)
+[![e-STYLE]](https://youtu.be/d4tX5OXCeLc?si=HsFSyyIr9ReAOSsF)
 _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link_
 
 
@@ -43,7 +43,7 @@ _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link
 - **Frontend**: HTML, CSS, JAVA
 - **Backend**: Python
 - **Database**: CSV
-- **APIs**: [Technologies]
+- **APIs**: GEMINI
 - **DevOps**: [Technologies]
 - **Other Tools**: [Technologies]
 
