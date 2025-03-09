@@ -34,7 +34,7 @@ E-Style is a smart wardrobe solution that promotes fashion sustainability by ena
 
 ### Demo
 [![e-STYLE]](https://youtu.be/d4tX5OXCeLc?si=HsFSyyIr9ReAOSsF)
-_Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link_
+
 
 
 ## Technical Implementation
@@ -98,12 +98,12 @@ _Share your vision for future development_
 ---
 
 ### Submission Checklist
-- [ ] Completed all sections of this README
-- [ ] Added project demo video
-- [ ] Provided live project link
-- [ ] Ensured all team members are listed
-- [ ] Included setup instructions
-- [ ] Submitted final code to repository
+- [✅] Completed all sections of this README
+- [✅]  Added project demo video
+- [✅]   Provided live project link
+- [✅]  Ensured all team members are listed
+- [✅]  Included setup instructions
+- [✅]  Submitted final code to repository
 
 ---
 
