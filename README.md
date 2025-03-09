@@ -25,13 +25,13 @@ The official template repository for Define 3.0
 ## Project Details
 
 ### Overview
-_A concise summary of your project (2-3 sentences)_
+The project aims to enhance clothing accessibility and sustainability by providing an intelligent wardrobe system. It focuses on renting and borrowing outfits, allowing users to maximize wardrobe utility while reducing waste.
 
 ### Problem Statement
-_Describe the problem your project aims to solve_
+The fashion industry is the second-largest polluter globally, with over 92 million tons of textile waste generated annually and fast fashion accelerating resource depletion. Consumers frequently discard clothes after minimal use, leading to excessive landfill waste, high water consumption, and increased carbon emissions. Despite growing awareness, sustainable fashion choices remain inconvenient, expensive, or inaccessible to many individuals.
 
 ### Solution
-_Explain your approach to solving the problem_
+E-Style is a smart wardrobe solution that promotes fashion sustainability by enabling users to rent and borrow clothes effortlessly. The platform allows individuals to list their outfits for rent, find suitable attire for any occasion, and make fashion more accessible, cost-effective, and eco-friendly. With secure transactions, smart recommendations, and a seamless user experience, E-Style transforms how people engage with their wardrobes.
 
 ### Demo
 [![Project Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
