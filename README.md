@@ -43,24 +43,26 @@ _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link
 ## Technical Implementation
 
 ### Technologies Used
-- **Frontend**: [Technologies]
-- **Backend**: [Technologies]
-- **Database**: [Technologies]
-- **APIs**: [Technologies]
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Python
+- **Database**: CSV
+- **APIs**: Gemini
 - **DevOps**: [Technologies]
 - **Other Tools**: [Technologies]
 
 ### Key Features
-- Feature 1
-- Feature 2
-- Feature 3
+- Fit Fusion
+- Renting and Lending
+- Charity/ Donate
 
 ## Setup Instructions
 
+
 ### Prerequisites
-- Requirement 1
-- Requirement 2
-- Requirement 3
+- HTML
+- CSS
+- JAVA
+- Python
 
 ### Installation 
 ```bash
@@ -78,7 +80,7 @@ _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link
 _Brief overview of your development process and milestones_
 
 ### Challenges Faced
-_Discuss technical challenges and how you overcame them_
+Finding out the right dataset
 
 ### Future Enhancements
 _Share your vision for future development_
