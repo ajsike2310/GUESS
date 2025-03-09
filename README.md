@@ -66,28 +66,42 @@ _Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link
 
 ### Installation 
 ```bash
-
+1.Clone the repository:
+sh
+Copy
+Edit
+git clone https://github.com/ajsike2310/GUESS.git
+cd <repo-folder>
+2.Install dependencies:
+sh
+Copy
+Edit
+pip install -r requirements.txt
+3.Set up environment variables (e.g., API keys) in a .env file.
 ```
 
 ### Running the Project
 ```bash
-
+Execute the hack.ipynb file
 ```
 
 ## Additional Resources
 
 ### Project Timeline
-_Brief overview of your development process and milestones_
+1. Research and dataset collection
+2. Backend setup and API integration
+3. Frontend design and testing
+4. Debugging and final touches
 
 ### Challenges Faced
 Finding out the right dataset
 
 ### Future Enhancements
-_Share your vision for future development_
+1. A proper dataset and a model
+2. Improve the UI/UX interface
 
 ### References (if any)
 - [Reference 1](link)
-- [Reference 2](link)
 
 ---
 
