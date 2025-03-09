@@ -84,13 +84,17 @@ run the file hack.ipynb and signup.html
 ## Additional Resources
 
 ### Project Timeline
-_Brief overview of your development process and milestones_
+1 Research and dataset collection
+2 Backend setup and API integration
+3 Frontend design and testing
+4 Debugging and final touches
 
 ### Challenges Faced
 It was difficult to get a dataset
 
 ### Future Enhancements
-_Share your vision for future development_
+# Increase the accuracy of dataset and train model
+# Improve UI/UX experience.
 
 ### References (if any)
 -
