@@ -6,8 +6,7 @@ The official template repository for Define 3.0
 
 
 
-# < Project Name >
-E-Style
+# E-STYLE
 ![](https://github.com/ajsike2310/GUESS/blob/main/e.png)
 
 
