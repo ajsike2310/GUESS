@@ -16,10 +16,10 @@ The official template repository for Define 3.0
 ### Team Members
 | Name | Role | GitHub | LinkedIn |
 |------|------|--------|----------|
-| Athira S | [Role] | [@athxra](https://github.com/athxra) | [Profile](https://linkedin.com/in/athira-s-541957290) |
-| Avin Joy | [Role] | [@ajsike2310](https://github.com/ajsike2310) | [Profile](https://linkedin.com/in/avin-joy-230237260) |
-| Chris  Alex| [Role] | [@Chris42alex](https://github.com/Chris42alex) | [Profile](https://linkedin.com/in/chris-alex-a85a75290) |
-| Kevin James| [Role] | [@Kevinjames05](https://github.com/Kevinjames005) | [Profile](https://linkedin.com/in//kevin-james-8b0546318) |
+| Athira S | Backend | [@athxra](https://github.com/athxra) | [Profile](https://linkedin.com/in/athira-s-541957290) |
+| Avin Joy | Backend | [@ajsike2310](https://github.com/ajsike2310) | [Profile](https://linkedin.com/in/avin-joy-230237260) |
+| Chris  Alex| Frontend | [@Chris42alex](https://github.com/Chris42alex) | [Profile](https://linkedin.com/in/chris-alex-a85a75290) |
+| Kevin James| Frontend| [@Kevinjames05](https://github.com/Kevinjames005) | [Profile](https://linkedin.com/in//kevin-james-8b0546318) |
 
 ## Project Details
 
