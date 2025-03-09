@@ -1,118 +1,80 @@
+# E-Style - Smart Wardrobe Management App
 
-# Define 3.0
-The official template repository for Define 3.0
+A sustainable fashion application that helps users manage their wardrobe, get AI-powered outfit recommendations, participate in clothing rental, and make charitable donations.
 
-![DefineHack 2025 Logo](https://github.com/user-attachments/assets/8173bc16-418e-4912-b500-c6427e4ba4b6)
+## Features
 
+- 👕 **Wardrobe Management**
+  - Digital clothing catalog
+  - Usage pattern tracking
+  - Outfit history
 
+- 🤖 **AI-Based Outfit Recommendations**
+  - Weather-based suggestions
+  - Occasion-specific recommendations
+  - Personal style learning
 
-# E-STYLE
-![](https://github.com/ajsike2310/GUESS/blob/main/e.png)
+- 👗 **Clothing Rental System**
+  - Peer-to-peer clothing rental
+  - Rental history tracking
+  - Rating system
 
+- 🎁 **Charity Button & Donation System**
+  - Easy item donation marking
+  - Nearby donation center locator
+  - NGO pickup service integration
+  - Donation impact tracking
 
-### Team Information
-- **Team Name**: GUESS? 
-- **Track**: Sustainability
+- ♻️ **Sustainability Features**
+  - Environmental impact tracking
+  - Sustainable fashion tips
+  - Recycling guidelines
 
-### Team Members
-| Name | Role | GitHub | LinkedIn |
-|------|------|--------|----------|
-| Athira S | Backend | [@athxra](https://github.com/athxra) | [Profile](https://linkedin.com/in/athira-s-541957290) |
-| Avin Joy | Backend | [@ajsike2310](https://github.com/ajsike2310) | [Profile](https://linkedin.com/in/avin-joy-230237260) |
-| Chris Alex | Frontend | [@Chris42alex](https://github.com/Chris42alex) | [Profile](https://linkedin.com/in/chris-alex-a85a75290) |
-| Kevin James | Frontend | [@kevinjames005](https://github.com/kevinjames005) | [Profile](https://linkedin.com/in/kevin-james-8b0546318) |
+- 👤 **User Authentication & Personalization**
+  - Secure login system
+  - Customizable style profiles
+  - Preference settings
 
-## Project Details
+## Technology Stack
 
-### Overview
-The project aims to enhance clothing accessibility and sustainability by providing an intelligent wardrobe system. It focuses on renting and borrowing outfits, allowing users to maximize wardrobe utility while reducing waste.
-
-### Problem Statement
-The fashion industry is the second-largest polluter globally, with over 92 million tons of textile waste generated annually and fast fashion accelerating resource depletion. Consumers frequently discard clothes after minimal use, leading to excessive landfill waste, high water consumption, and increased carbon emissions. Despite growing awareness, sustainable fashion choices remain inconvenient, expensive, or inaccessible to many individuals.
-
-### Solution
-E-Style is a smart wardrobe solution that promotes fashion sustainability by enabling users to rent and borrow clothes effortlessly. The platform allows individuals to list their outfits for rent, find suitable attire for any occasion, and make fashion more accessible, cost-effective, and eco-friendly. With secure transactions, smart recommendations, and a seamless user experience, E-Style transforms how people engage with their wardrobes.
-
-### Demo
-[![Project Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-_Replace VIDEO_ID with your YouTube video ID or provide an alternative demo link_
-
-### Live Project
-[Project Name](https://your-project-url.com)
-
-## Technical Implementation
-
-### Technologies Used
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: Python
-- **Database**: CSV
-- **APIs**: Gemini
-- **DevOps**: [Technologies]
-- **Other Tools**: [Technologies]
-
-### Key Features
-- Fit Fusion
-- Renting and Lending
-- Charity/ Donate
+- **Frontend:** Flutter
+- **Backend:** SQL Database
+- **AI/ML:** Machine Learning algorithms for recommendations
+- **Location Services:** Geolocation for donation centers
+- **APIs:** Charity partner integrations
 
 ## Setup Instructions
 
+1. Install Flutter SDK
+2. Clone this repository
+3. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+4. Run the application:
+   ```bash
+   flutter run
+   ```
 
-### Prerequisites
-- HTML
-- CSS
-- JAVA
-- Python
+## Project Structure
 
-### Installation 
-```bash
-1.Clone the repository:
-sh
-Copy
-Edit
-git clone https://github.com/ajsike2310/GUESS.git
-cd <repo-folder>
-2.Install dependencies:
-sh
-Copy
-Edit
-pip install -r requirements.txt
-3.Set up environment variables (e.g., API keys) in a .env file.
+```
+e_style/
+├── lib/
+│   ├── models/          # Data models
+│   ├── screens/         # UI screens
+│   ├── widgets/         # Reusable widgets
+│   ├── services/        # Business logic
+│   ├── utils/           # Helper functions
+│   └── main.dart        # Entry point
+├── assets/             # Images, fonts, etc.
+└── test/              # Unit and widget tests
 ```
 
-### Running the Project
-```bash
-Execute the hack.ipynb file
-```
+## Contributing
 
-## Additional Resources
+Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
 
-### Project Timeline
-1. Research and dataset collection
-2. Backend setup and API integration
-3. Frontend design and testing
-4. Debugging and final touches
+## License
 
-### Challenges Faced
-Finding out the right dataset
-
-### Future Enhancements
-1. A proper dataset and a model
-2. Improve the UI/UX interface
-
-### References (if any)
-- [Reference 1](link)
-
----
-
-### Submission Checklist
-- [ ] Completed all sections of this README
-- [ ] Added project demo video
-- [ ] Provided live project link
-- [ ] Ensured all team members are listed
-- [ ] Included setup instructions
-- [ ] Submitted final code to repository
-
----
-
-© Define 3.0 | [Define 3.0](https://www.define3.xyz/)
+This project is licensed under the MIT License - see the LICENSE file for details. 

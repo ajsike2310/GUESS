@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wardrobe - e-STYLE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-gray: #E9ECEF;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: var(--white);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo span {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .user-profile {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .profile-info:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .profile-pic {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .username {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .profile-info i {
+            font-size: 12px;
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown:hover .profile-info i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item span {
+            font-size: 14px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 8px 0;
+        }
+
+        .logout {
+            color: #dc3545;
+        }
+
+        .logout:hover {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background: var(--white);
+            transform: rotate(45deg);
+            box-shadow: -2px -2px 5px rgba(0,0,0,0.04);
+        }
+
+        /* Main Content Styles */
+        .main-container {
+            margin-top: 100px;
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .username {
+                display: none;
+            }
+
+            .profile-info {
+                padding: 5px;
+            }
+
+            .profile-info i {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+
+        /* Add back your original wardrobe styles */
+        .wardrobe-container {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 80px auto 0;
+        }
+
+        .wardrobe-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .wardrobe-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .add-item-btn {
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .add-item-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .wardrobe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .clothing-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .clothing-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .item-details {
+            padding: 15px;
+        }
+
+        .item-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .item-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .tag.favorite {
+            background: #ff6b6b;
+        }
+
+        .tag.professional {
+            background: #4dabf7;
+        }
+
+        .tag.new {
+            background: #51cf66;
+        }
+
+        .item-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .edit-btn:hover {
+            background: #dee2e6;
+            transform: translateY(-2px);
+        }
+
+        .delete-btn {
+            background: #ffe3e3;
+            color: #e03131;
+        }
+
+        .delete-btn:hover {
+            background: #ffc9c9;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .wardrobe-container {
+                padding: 20px;
+            }
+
+            .wardrobe-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .wardrobe-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        .dress-category {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #333;
+            margin: 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .dress-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .dress-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .dress-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .dress-image:hover {
+            transform: scale(1.03);
+        }
+
+        .dress-name {
+            margin-top: 10px;
+            text-align: center;
+            color: #444;
+        }
+
+        @media (max-width: 768px) {
+            .dress-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .dress-image {
+                height: 250px;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1001;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        #imagePreview {
+            margin-top: 10px;
+            min-height: 100px;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #imagePreview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 5px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background: #ddd;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .cancel-btn:hover {
+            background: #ccc;
+        }
+
+        .image-upload-options {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .camera-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .camera-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .or-divider {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .capture-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px auto;
+            transition: all 0.3s ease;
+        }
+
+        .capture-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        #cameraFeed {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+        }
+
+        /* New styles for dress classification */
+        .item-meta {
+            padding: 10px 0;
+        }
+        
+        .type-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        
+        .occasions {
+            margin-top: 8px;
+        }
+        
+        .occasion-title {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .occasion-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .occasion-list li {
+            font-size: 12px;
+            color: #555;
+            margin: 2px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .occasion-list i {
+            color: var(--primary-color);
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-tshirt"></i>
+                    <span>e-STYLE</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="rental.html" class="nav-item">Rent</a>
+                <a href="wardrobe.html" class="nav-item active">My Wardrobe</a>
+                <a href="ai-stylist.html" class="nav-item">AI Stylist</a>
+                <a href="charity.html" class="nav-item">Charity</a>
+            </div>
+            <div class="user-profile">
+                <div class="profile-dropdown">
+                    <div class="profile-info">
+                        <img src="images/profile-pic.avif" alt="Profile" class="profile-pic">
+                        <span class="username"></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-heart"></i>
+                            <span>Favorites</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-history"></i>
+                            <span>Rental History</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="wardrobe-container">
+            <div class="wardrobe-header">
+                <h1 class="wardrobe-title">My Wardrobe</h1>
+                <button class="add-item-btn" onclick="openModal()">
+                    <i class="fas fa-plus"></i>
+                    Add New Item
+                </button>
+            </div>
+
+            <!-- Add this modal form after the wardrobe-header -->
+            <div id="addItemModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <h2>Add New Item</h2>
+                    <form id="addItemForm">
+                        <div class="form-group">
+                            <label for="itemName">Dress Name:</label>
+                            <input type="text" id="itemName" name="itemName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemImage">Add Image:</label>
+                            <div class="image-upload-options">
+                                <button type="button" class="camera-btn" onclick="openCamera()">
+                                    <i class="fas fa-camera"></i>
+                                    Take Photo
+                                </button>
+                                <div class="or-divider">OR</div>
+                                <input type="file" id="itemImage" name="itemImage" accept="image/*" required>
+                            </div>
+                            <video id="cameraFeed" style="display: none; width: 100%; margin-top: 10px; border-radius: 5px;"></video>
+                            <button type="button" id="captureBtn" style="display: none;" class="capture-btn">
+                                <i class="fas fa-camera"></i>
+                                Capture Photo
+                            </button>
+                            <div id="imagePreview"></div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="submit-btn">Add Item</button>
+                            <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <section>
+                <div class="wardrobe-grid">
+                    <!-- Add your clothing items here -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Add these functions at the start of your script section
+        function saveToLocalStorage(items) {
+            localStorage.setItem('wardrobeItems', JSON.stringify(items));
+        }
+
+        function loadFromLocalStorage() {
+            const items = localStorage.getItem('wardrobeItems');
+            return items ? JSON.parse(items) : [];
+        }
+
+        // Modify the createItemElement function to be simpler
+        function createItemElement(itemData) {
+            const newItem = document.createElement('div');
+            newItem.className = 'clothing-item';
+            newItem.innerHTML = `
+                <img src="${itemData.image}" alt="${itemData.name}" class="item-image">
+                <div class="item-details">
+                    <h3 class="item-name">${itemData.name}</h3>
+                    <div class="item-actions">
+                        <button class="action-btn delete-btn">
+                            <i class="fas fa-trash"></i>
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Add delete functionality
+            const deleteBtn = newItem.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to remove this item from your wardrobe?')) {
+                    newItem.remove();
+                    // Update localStorage after deletion
+                    const items = loadFromLocalStorage();
+                    const updatedItems = items.filter(item => item.name !== itemData.name);
+                    saveToLocalStorage(updatedItems);
+                }
+            });
+
+            return newItem;
+        }
+
+        // Modify the form submission handler
+        document.getElementById('addItemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const itemName = document.getElementById('itemName').value;
+            const image = document.getElementById('itemImage').files[0];
+            
+            // Convert image to base64 for storage
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                
+                // Create item data object
+                const itemData = {
+                    name: itemName,
+                    image: imageData
+                };
+
+                // Add to localStorage
+                const items = loadFromLocalStorage();
+                items.push(itemData);
+                saveToLocalStorage(items);
+
+                // Create and add new item element
+                const newItem = createItemElement(itemData);
+                document.querySelector('.wardrobe-grid').appendChild(newItem);
+                
+                // Close modal and reset form
+                closeModal();
+            };
+            reader.readAsDataURL(image);
+        });
+
+        // Add this function to load items when page loads
+        function loadWardrobeItems() {
+            const items = loadFromLocalStorage();
+            const wardrobeGrid = document.querySelector('.wardrobe-grid');
+            
+            // Clear existing items
+            wardrobeGrid.innerHTML = '';
+            
+            // Add each item from storage
+            items.forEach(itemData => {
+                const itemElement = createItemElement(itemData);
+                wardrobeGrid.appendChild(itemElement);
+            });
+        }
+
+        // Call loadWardrobeItems when the page loads
+        document.addEventListener('DOMContentLoaded', loadWardrobeItems);
+
+        // Modal functionality
+        const modal = document.getElementById('addItemModal');
+        
+        function openModal() {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('addItemForm').reset();
+            document.getElementById('imagePreview').innerHTML = '<span>No image selected</span>';
+            closeCamera();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Image preview functionality
+        document.getElementById('itemImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.innerHTML = '<span>No image selected</span>';
+            }
+        });
+
+        // Update the Add New Item button click handler
+        document.querySelector('.action-btn.primary').addEventListener('click', openModal);
+
+        // Add click handlers for filter and sort buttons
+        document.querySelectorAll('.action-btn:not(.primary)').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Filter and Sort functionality coming soon!');
+            });
+        });
+
+        let stream = null;
+
+        function openCamera() {
+            const cameraFeed = document.getElementById('cameraFeed');
+            const captureBtn = document.getElementById('captureBtn');
+            const fileInput = document.getElementById('itemImage');
+            
+            // Show camera feed and capture button
+            cameraFeed.style.display = 'block';
+            captureBtn.style.display = 'flex';
+            fileInput.style.display = 'none';
+            
+            // Request camera access
+            navigator.mediaDevices.getUserMedia({ 
+                video: { 
+                    facingMode: 'environment',
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                } 
+            })
+            .then(function(mediaStream) {
+                stream = mediaStream;
+                cameraFeed.srcObject = mediaStream;
+                cameraFeed.play();
+            })
+            .catch(function(err) {
+                console.error("Camera error:", err);
+                alert("Unable to access camera. Please make sure you've granted camera permissions.");
+                closeCamera();
+            });
+        }
+
+        function closeCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            const cameraFeed = document.getElementById('cameraFeed');
+            const captureBtn = document.getElementById('captureBtn');
+            const fileInput = document.getElementById('itemImage');
+            
+            cameraFeed.style.display = 'none';
+            captureBtn.style.display = 'none';
+            fileInput.style.display = 'block';
+        }
+
+        // Add capture functionality
+        document.getElementById('captureBtn').addEventListener('click', function() {
+            const cameraFeed = document.getElementById('cameraFeed');
+            const canvas = document.createElement('canvas');
+            canvas.width = cameraFeed.videoWidth;
+            canvas.height = cameraFeed.videoHeight;
+            
+            // Draw the video frame to canvas
+            canvas.getContext('2d').drawImage(cameraFeed, 0, 0);
+            
+            // Convert to file
+            canvas.toBlob(function(blob) {
+                const file = new File([blob], "camera_capture.jpg", { type: "image/jpeg" });
+                
+                // Update the file input
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                document.getElementById('itemImage').files = dataTransfer.files;
+                
+                // Show preview
+                const preview = document.getElementById('imagePreview');
+                preview.innerHTML = `<img src="${URL.createObjectURL(file)}" alt="Preview">`;
+                
+                // Close camera
+                closeCamera();
+            }, 'image/jpeg', 0.8);
+        });
+
+        // Replace the weather detection code with this updated version
+        async function detectWeather() {
+            const weatherDisplay = document.getElementById('currentWeather');
+            
+            try {
+                // First get location from IP
+                const locationResponse = await fetch('https://ipapi.co/json/');
+                const locationData = await locationResponse.json();
+                
+                // Use the location data to fetch weather
+                const weatherResponse = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=${locationData.city}&appid=YOUR_OPENWEATHER_API_KEY&units=metric`
+                );
+                const weather = await weatherResponse.json();
+
+                // Update the display
+                weatherDisplay.innerHTML = `
+                    <i class="fas fa-${getWeatherIcon(weather.weather[0].main)} weather-icon"></i>
+                    <div class="weather-details">
+                        <span class="temperature">${Math.round(weather.main.temp)}°C - ${weather.weather[0].main}</span>
+                        <span class="location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${locationData.city}, ${locationData.country_name}
+                        </span>
+                    </div>
+                `;
+
+                return {
+                    type: categorizeWeather(weather.main.temp, weather.weather[0].main),
+                    temp: weather.main.temp
+                };
+
+            } catch (error) {
+                console.error('Weather detection error:', error);
+                weatherDisplay.innerHTML = `
+                    <i class="fas fa-cloud weather-icon"></i>
+                    <div class="weather-details">
+                        <span class="temperature">Weather data unavailable</span>
+                        <span class="location">Using default recommendations</span>
+                    </div>
+                `;
+                return { type: 'mild', temp: 20 }; // Default fallback
+            }
+        }
+
+        function getWeatherIcon(condition) {
+            const icons = {
+                'Clear': 'sun',
+                'Clouds': 'cloud',
+                'Rain': 'cloud-rain',
+                'Snow': 'snowflake',
+                'Thunderstorm': 'bolt',
+                'Drizzle': 'cloud-rain',
+                'Mist': 'smog',
+                'Fog': 'smog'
+            };
+            return icons[condition] || 'cloud';
+        }
+
+        function categorizeWeather(temp, condition) {
+            if (condition.toLowerCase().includes('rain') || 
+                condition.toLowerCase().includes('drizzle')) {
+                return 'rainy';
+            }
+            if (temp >= 25) return 'hot';
+            if (temp >= 20) return 'mild';
+            if (temp >= 10) return 'cool';
+            return 'cold';
+        }
+
+        // Initialize weather when page loads
+        document.addEventListener('DOMContentLoaded', detectWeather);
+    </script>
+</body>
+</html> 

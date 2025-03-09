@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental - StyleSwap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-gray: #E9ECEF;
+            --white: #FFFFFF;
+            --dark-accent: #333138;
+            --card-shadow: 0 8px 16px rgba(0, 1, 3, 0.1);
+            --hover-shadow: 0 12px 24px rgba(0, 1, 3, 0.15);
+            --red-gradient: linear-gradient(135deg, #FF312E, #FF6B68);
+            --dark-gradient: linear-gradient(135deg, #333138, #515052);
+        }
+
+        body {
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            background: var(--white);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo span {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .user-profile {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .profile-info:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .profile-pic {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .username {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .profile-info i {
+            font-size: 12px;
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown:hover .profile-info i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item span {
+            font-size: 14px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 8px 0;
+        }
+
+        .logout {
+            color: #dc3545;
+        }
+
+        .logout:hover {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background: var(--white);
+            transform: rotate(45deg);
+            box-shadow: -2px -2px 5px rgba(0,0,0,0.04);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-item {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 0 15px;
+            }
+
+            .logo span {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 10px;
+                padding: 0 10px;
+            }
+
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            .username {
+                display: none;
+            }
+
+            .profile-info {
+                padding: 5px;
+            }
+
+            .profile-info i {
+                display: none;
+            }
+
+            .dropdown-menu {
+                right: -10px;
+            }
+        }
+
+        .main-container {
+            margin-top: 80px;
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .rental-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .rental-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-accent);
+            margin-bottom: 1rem;
+        }
+
+        .rental-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            box-shadow: var(--card-shadow);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            z-index: 1;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-filter {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .search-filter.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .search-filter:hover {
+            color: var(--primary-color);
+        }
+
+        .rental-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .rental-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .rental-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .rental-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .rental-info {
+            padding: 1.5rem;
+        }
+
+        .rental-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .rental-price {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rental-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .rental-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .rental-rating i {
+            color: #FFD700;
+        }
+
+        .add-listing-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--red-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1rem;
+            font-weight: 500;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .add-listing-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .rental-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-btn {
+                width: 100%;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            animation: slideUp 0.3s ease-out;
+            overflow-y: auto;
+            /* Styling the scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-color) #f0f0f0;
+        }
+
+        /* Webkit scrollbar styles */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-header h2 {
+            color: var(--dark-accent);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        .listing-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--dark-accent);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .date-range {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .date-range .form-group {
+            flex: 1;
+        }
+
+        .submit-btn {
+            background: var(--red-gradient);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Item Details Modal Styles */
+        .item-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .item-modal-content {
+            position: relative;
+            background-color: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            animation: slideUp 0.3s ease-out;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .item-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .item-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .item-image-large {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .item-info-detailed {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .item-title-large {
+            font-size: 2rem;
+            color: var(--dark-accent);
+            font-weight: 600;
+        }
+
+        .item-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .item-meta-large {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .meta-item i {
+            color: var(--primary-color);
+        }
+
+        .rent-now-btn {
+            background: var(--red-gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .rent-now-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .map-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .map-link i {
+            font-size: 0.8rem;
+        }
+
+        .location-input-container {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .map-picker-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .map-picker-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        .map-container.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-tshirt"></i>
+                    <span>e-STYLE</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="rental.html" class="nav-item active">Rent</a>
+                <a href="wardrobe.html" class="nav-item">My Wardrobe</a>
+                <a href="ai-stylist.html" class="nav-item">AI Stylist</a>
+                <a href="charity.html" class="nav-item">Charity</a>
+            </div>
+            <div class="user-profile">
+                <div class="profile-dropdown">
+                    <div class="profile-info">
+                        <img src="images/profile-pic.avif" alt="Profile" class="profile-pic">
+                        <span class="username"></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-heart"></i>
+                            <span>Favorites</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-history"></i>
+                            <span>Rental History</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="rental-header">
+            <h1>Rental Marketplace</h1>
+            <p>Share your wardrobe or discover unique pieces to rent</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search by item name, size, price range...">
+            </div>
+            <div class="search-filters">
+                <button class="search-filter active">All</button>
+                <button class="search-filter">Available Now</button>
+                <button class="search-filter">Price: Low to High</button>
+                <button class="search-filter">Price: High to Low</button>
+                <button class="search-filter">Top Rated</button>
+            </div>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active">All Items</button>
+            <button class="filter-btn">Dresses</button>
+            <button class="filter-btn">Suits</button>
+            <button class="filter-btn">Accessories</button>
+            <button class="filter-btn">Shoes</button>
+        </div>
+
+        <div class="rental-grid">
+            <div class="rental-card" data-category="dresses">
+                <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956" alt="Elegant Dress" class="rental-image">
+                <div class="rental-info">
+                    <h3 class="rental-title">Elegant Evening Dress</h3>
+                    <p class="rental-price">$45/day</p>
+                    <div class="rental-meta">
+                        <span>Size: M</span>
+                        <div class="rental-rating">
+                            <i class="fas fa-star"></i>
+                            4.8
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rental-card" data-category="suits">
+                <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35" alt="Designer Suit" class="rental-image">
+                <div class="rental-info">
+                    <h3 class="rental-title">Designer Suit</h3>
+                    <p class="rental-price">$75/day</p>
+                    <div class="rental-meta">
+                        <span>Size: L</span>
+                        <div class="rental-rating">
+                            <i class="fas fa-star"></i>
+                            4.9
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rental-card" data-category="accessories">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3" alt="Luxury Handbag" class="rental-image">
+                <div class="rental-info">
+                    <h3 class="rental-title">Luxury Handbag</h3>
+                    <p class="rental-price">$35/day</p>
+                    <div class="rental-meta">
+                        <span>Condition: Excellent</span>
+                        <div class="rental-rating">
+                            <i class="fas fa-star"></i>
+                            4.7
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <button class="add-listing-btn">
+        <i class="fas fa-plus"></i>
+        List Your Item
+    </button>
+
+    <!-- Add Modal -->
+    <div class="modal" id="listingModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>List Your Item</h2>
+                <p>Share your wardrobe with the community</p>
+            </div>
+            <form class="listing-form" id="listingForm">
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" id="itemName" placeholder="Enter the name of your item" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemImage">Item Image</label>
+                    <input type="file" id="itemImage" accept="image/*" required>
+                    <div class="image-preview" id="imagePreview">
+                        <span>No image selected</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">Item Description</label>
+                    <textarea id="itemDescription" placeholder="Describe your item (condition, brand, etc.)" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rentalPrice">Rental Price ($ per day)</label>
+                    <input type="number" id="rentalPrice" min="0" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemLocation">Item Location</label>
+                    <div class="location-input-container">
+                        <input type="text" id="itemLocation" placeholder="Enter address" required>
+                        <button type="button" class="map-picker-btn" onclick="initMap()">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </button>
+                    </div>
+                    <div id="map" class="map-container"></div>
+                    <input type="hidden" id="itemLatitude">
+                    <input type="hidden" id="itemLongitude">
+                </div>
+                <div class="date-range">
+                    <div class="form-group">
+                        <label for="startDate">Available From</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Available Until</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">List Item</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Item Details Modal -->
+    <div class="item-modal" id="itemDetailsModal">
+        <div class="item-modal-content">
+            <span class="close-modal" id="closeItemModal">&times;</span>
+            <div class="item-details">
+                <img class="item-image-large" id="modalItemImage" src="" alt="Item Image">
+                <div class="item-info-detailed">
+                    <h2 class="item-title-large" id="modalItemTitle"></h2>
+                    <p class="item-description" id="modalItemDescription"></p>
+                    <div class="item-meta-large">
+                        <div class="meta-item">
+                            <i class="fas fa-tag"></i>
+                            <span id="modalItemPrice"></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-ruler"></i>
+                            <span id="modalItemSize"></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-star"></i>
+                            <span id="modalItemRating"></span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Available for Immediate Rental</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="modalItemLocation"></span>
+                            <a id="modalMapLink" href="#" target="_blank" class="map-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                View on Map
+                            </a>
+                        </div>
+                    </div>
+                    <button class="rent-now-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        Rent Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get the selected category
+                const selectedCategory = button.textContent.toLowerCase();
+                
+                // Filter the rental cards
+                const rentalCards = document.querySelectorAll('.rental-card');
+                rentalCards.forEach(card => {
+                    if (selectedCategory === 'all items') {
+                        card.style.display = 'block';
+                    } else {
+                        const cardCategory = card.getAttribute('data-category');
+                        card.style.display = cardCategory === selectedCategory ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchFilters = document.querySelectorAll('.search-filter');
+        const rentalCards = document.querySelectorAll('.rental-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            rentalCards.forEach(card => {
+                const title = card.querySelector('.rental-title').textContent.toLowerCase();
+                const price = card.querySelector('.rental-price').textContent.toLowerCase();
+                const meta = card.querySelector('.rental-meta').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || price.includes(searchTerm) || meta.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        searchFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                searchFilters.forEach(btn => btn.classList.remove('active'));
+                filter.classList.add('active');
+                
+                // Example sorting functionality (you can expand this based on your needs)
+                const filterText = filter.textContent.toLowerCase();
+                if (filterText.includes('price: low to high')) {
+                    // Sort by price low to high
+                    sortCardsByPrice(true);
+                } else if (filterText.includes('price: high to low')) {
+                    // Sort by price high to low
+                    sortCardsByPrice(false);
+                } else if (filterText.includes('top rated')) {
+                    sortCardsByRating();
+                }
+            });
+        });
+
+        function sortCardsByPrice(ascending = true) {
+            const rentalGrid = document.querySelector('.rental-grid');
+            const cards = Array.from(rentalCards);
+            
+            cards.sort((a, b) => {
+                const priceA = parseFloat(a.querySelector('.rental-price').textContent.replace('$', ''));
+                const priceB = parseFloat(b.querySelector('.rental-price').textContent.replace('$', ''));
+                return ascending ? priceA - priceB : priceB - priceA;
+            });
+
+            rentalGrid.innerHTML = '';
+            cards.forEach(card => rentalGrid.appendChild(card));
+        }
+
+        function sortCardsByRating() {
+            const rentalGrid = document.querySelector('.rental-grid');
+            const cards = Array.from(rentalCards);
+            
+            cards.sort((a, b) => {
+                const ratingA = parseFloat(a.querySelector('.rental-rating').textContent);
+                const ratingB = parseFloat(b.querySelector('.rental-rating').textContent);
+                return ratingB - ratingA;
+            });
+
+            rentalGrid.innerHTML = '';
+            cards.forEach(card => rentalGrid.appendChild(card));
+        }
+
+        // Modal functionality
+        const modal = document.getElementById('listingModal');
+        const addListingBtn = document.querySelector('.add-listing-btn');
+        const closeModal = document.querySelector('.close-modal');
+        const listingForm = document.getElementById('listingForm');
+        const imageInput = document.getElementById('itemImage');
+        const imagePreview = document.getElementById('imagePreview');
+
+        addListingBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Image preview functionality
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                }
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.innerHTML = '<span>No image selected</span>';
+            }
+        });
+
+        // Form submission
+        listingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('itemName').value,
+                image: document.getElementById('itemImage').files[0],
+                description: document.getElementById('itemDescription').value,
+                price: document.getElementById('rentalPrice').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                location: document.getElementById('itemLocation').value,
+                latitude: document.getElementById('itemLatitude').value,
+                longitude: document.getElementById('itemLongitude').value
+            };
+            
+            // Here you would typically send the form data to your backend
+            console.log('Form Data:', formData);
+            alert('Item listed successfully!');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            this.reset();
+            imagePreview.innerHTML = '<span>No image selected</span>';
+            document.getElementById('map').classList.remove('active');
+        });
+
+        // Set minimum date for date inputs to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('startDate').min = today;
+        document.getElementById('endDate').min = today;
+
+        // Ensure end date is after start date
+        document.getElementById('startDate').addEventListener('change', function() {
+            document.getElementById('endDate').min = this.value;
+        });
+
+        // Item Details Modal Functionality
+        const itemDetailsModal = document.getElementById('itemDetailsModal');
+        const closeItemModal = document.getElementById('closeItemModal');
+        const modalItemImage = document.getElementById('modalItemImage');
+        const modalItemTitle = document.getElementById('modalItemTitle');
+        const modalItemDescription = document.getElementById('modalItemDescription');
+        const modalItemPrice = document.getElementById('modalItemPrice');
+        const modalItemSize = document.getElementById('modalItemSize');
+        const modalItemRating = document.getElementById('modalItemRating');
+
+        // Item descriptions for each product
+        const itemDescriptions = {
+            'Elegant Evening Dress': 'A stunning evening dress perfect for special occasions. Features a flattering silhouette with delicate detailing and premium fabric that ensures both comfort and elegance. The dress has been well-maintained and dry-cleaned after each use.',
+            'Designer Suit': 'Premium quality designer suit crafted from fine Italian wool. Perfect for business meetings, weddings, or any formal occasion. Includes a perfectly tailored jacket and trousers with modern slim fit styling.',
+            'Luxury Handbag': 'Authentic designer handbag in excellent condition. Spacious interior with multiple compartments, perfect for both day and evening use. Made from genuine leather with gold-tone hardware.'
+        };
+
+        // Add location data for each item
+        const itemLocations = {
+            'Elegant Evening Dress': {
+                address: '123 Fashion Street, New York, NY 10001',
+                coordinates: '40.7128,-74.0060'
+            },
+            'Designer Suit': {
+                address: '456 Style Avenue, New York, NY 10002',
+                coordinates: '40.7589,-73.9851'
+            },
+            'Luxury Handbag': {
+                address: '789 Luxury Lane, New York, NY 10003',
+                coordinates: '40.7549,-73.9840'
+            }
+        };
+
+        // Add click event to all rental cards
+        document.querySelectorAll('.rental-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.rental-title').textContent;
+                const price = card.querySelector('.rental-price').textContent;
+                const size = card.querySelector('.rental-meta span').textContent;
+                const rating = card.querySelector('.rental-rating').textContent.trim();
+                const image = card.querySelector('.rental-image').src;
+                const location = itemLocations[title] || { address: 'Location not available', coordinates: '' };
+
+                modalItemImage.src = image;
+                modalItemTitle.textContent = title;
+                modalItemDescription.textContent = itemDescriptions[title] || 'Description not available';
+                modalItemPrice.textContent = price;
+                modalItemSize.textContent = size;
+                modalItemRating.textContent = `Rating: ${rating}`;
+                
+                // Update location information
+                document.getElementById('modalItemLocation').textContent = location.address;
+                const mapLink = document.getElementById('modalMapLink');
+                if (location.coordinates) {
+                    mapLink.href = `https://www.google.com/maps?q=${location.coordinates}`;
+                    mapLink.style.display = 'inline-flex';
+                } else {
+                    mapLink.style.display = 'none';
+                }
+
+                itemDetailsModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        closeItemModal.addEventListener('click', () => {
+            itemDetailsModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === itemDetailsModal) {
+                itemDetailsModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Add click handler for Rent Now button
+        document.querySelector('.rent-now-btn').addEventListener('click', function() {
+            alert('Thank you for your interest! We will contact you shortly to complete the rental process.');
+        });
+    </script>
+    <!-- Add this before the closing </body> tag -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <script>
+        let map;
+        let marker;
+        let autocomplete;
+
+        function initMap() {
+            const mapContainer = document.getElementById('map');
+            mapContainer.classList.add('active');
+
+            // Default location (New York)
+            const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+
+            // Initialize the map
+            map = new google.maps.Map(mapContainer, {
+                center: defaultLocation,
+                zoom: 13,
+                styles: [
+                    {
+                        "featureType": "poi",
+                        "elementType": "labels",
+                        "stylers": [{ "visibility": "off" }]
+                    }
+                ]
+            });
+
+            // Initialize the marker
+            marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                position: defaultLocation
+            });
+
+            // Initialize the autocomplete
+            const input = document.getElementById('itemLocation');
+            autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.bindTo('bounds', map);
+
+            // Update marker and map when a place is selected
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) return;
+
+                // Update map
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);
+                }
+
+                // Update marker
+                marker.setPosition(place.geometry.location);
+                
+                // Update hidden inputs
+                document.getElementById('itemLatitude').value = place.geometry.location.lat();
+                document.getElementById('itemLongitude').value = place.geometry.location.lng();
+            });
+
+            // Update coordinates when marker is dragged
+            marker.addListener('dragend', () => {
+                const position = marker.getPosition();
+                document.getElementById('itemLatitude').value = position.lat();
+                document.getElementById('itemLongitude').value = position.lng();
+                
+                // Reverse geocode to update address field
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ location: position }, (results, status) => {
+                    if (status === 'OK' && results[0]) {
+                        document.getElementById('itemLocation').value = results[0].formatted_address;
+                    }
+                });
+            });
+        }
+
+        // Initialize map when the modal opens
+        addListingBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            setTimeout(initMap, 500); // Delay to ensure modal is visible
+        });
+
+        // Update form submission to include location data
+        listingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('itemName').value,
+                image: document.getElementById('itemImage').files[0],
+                description: document.getElementById('itemDescription').value,
+                price: document.getElementById('rentalPrice').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                location: document.getElementById('itemLocation').value,
+                latitude: document.getElementById('itemLatitude').value,
+                longitude: document.getElementById('itemLongitude').value
+            };
+            
+            // Here you would typically send the form data to your backend
+            console.log('Form Data:', formData);
+            alert('Item listed successfully!');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            this.reset();
+            imagePreview.innerHTML = '<span>No image selected</span>';
+            document.getElementById('map').classList.remove('active');
+        });
+    </script>
+</body>
+</html> 

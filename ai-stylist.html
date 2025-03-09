@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Stylist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --background-color: #F8F9FA;
+            --text-color: #333;
+            --light-gray: #E9ECEF;
+            --white: #FFFFFF;
+            --hover-green: #27ae60;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo span {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .user-profile {
+            position: relative;
+        }
+
+        .profile-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .profile-dropdown i {
+            color: #666;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown:hover i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 10px 0;
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dropdown-content i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-item {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .logo span {
+                font-size: 20px;
+            }
+
+            .logo i {
+                font-size: 24px;
+            }
+
+            .profile-dropdown i.fa-chevron-down {
+                display: none;
+            }
+
+            .dropdown-content {
+                right: -10px;
+            }
+
+            .profile-pic {
+                width: 35px;
+                height: 35px;
+            }
+
+            .profile-dropdown span {
+                display: none;
+            }
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin-top: 120px;
+            margin: 100px auto 40px;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+
+        .occasion-categories {
+            display: flex;
+            gap: 15px;
+            margin: 30px auto;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .occasion-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            background: var(--white);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .occasion-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .occasion-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .generate-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .generate-btn {
+            padding: 15px 40px;
+            font-size: 18px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .generate-btn:hover {
+            background: var(--hover-green);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .outfit-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .outfit-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .outfit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .outfit-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .outfit-header h3 {
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        .outfit-items {
+            padding: 20px;
+        }
+
+        .item-container {
+            background: var(--light-gray);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .item-container:hover {
+            border: 2px solid var(--primary-color);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .item-info {
+            padding: 10px;
+        }
+
+        .item-info h4 {
+            color: var(--text-color);
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .item-info p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .styling-tips {
+            padding: 20px;
+            background: var(--light-gray);
+            margin-top: 20px;
+            border-radius: 15px;
+        }
+
+        .styling-tips h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .styling-tips ul {
+            list-style: none;
+        }
+
+        .styling-tips li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+
+        .styling-tips li:before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+
+        .occasion-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: var(--secondary-color);
+            color: var(--white);
+            border-radius: 15px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .outfit-display {
+                grid-template-columns: 1fr;
+            }
+
+            .occasion-categories {
+                gap: 10px;
+            }
+
+            .occasion-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        .loading-spinner {
+            border-top-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-tshirt"></i>
+                    <span>e-STYLE</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="rental.html" class="nav-item">Rent</a>
+                <a href="wardrobe.html" class="nav-item">My Wardrobe</a>
+                <a href="ai-stylist.html" class="nav-item active">AI Stylist</a>
+                <a href="charity.html" class="nav-item">Charity</a>
+            </div>
+            <div class="user-profile">
+                <div class="profile-dropdown">
+                    <img src="images/profile-pic.avif" alt="Profile" class="profile-pic">
+                    <span style="color: #333; font-weight: 500;"></span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="dropdown-content">
+                        <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="page-title">AI Stylist</h1>
+        
+        <div class="occasion-categories">
+            <button class="occasion-btn active" data-occasion="work">
+                <i class="fas fa-briefcase"></i> Work
+            </button>
+            <button class="occasion-btn" data-occasion="party">
+                <i class="fas fa-glass-cheers"></i> Party
+            </button>
+            <button class="occasion-btn" data-occasion="casual">
+                <i class="fas fa-coffee"></i> Casual
+            </button>
+            <button class="occasion-btn" data-occasion="formal">
+                <i class="fas fa-user-tie"></i> Formal
+            </button>
+            <button class="occasion-btn" data-occasion="date">
+                <i class="fas fa-heart"></i> Date Night
+            </button>
+            <button class="occasion-btn" data-occasion="vacation">
+                <i class="fas fa-umbrella-beach"></i> Vacation
+            </button>
+        </div>
+
+        <div class="generate-section">
+            <button onclick="generateOutfits()" class="generate-btn">
+                <i class="fas fa-magic"></i> Generate Outfits
+            </button>
+        </div>
+
+        <div id="outfitDisplay" class="outfit-display">
+            <!-- Outfit cards will be generated here -->
+        </div>
+    </div>
+
+    <script>
+        const wardrobeItems = [
+            // Dresses
+            {
+                id: 1,
+                name: "Black Evening Dress",
+                category: "Dresses",
+                occasions: ["party", "formal", "date"],
+                color: "Black",
+                style: ["Formal", "Evening", "Elegant"],
+                material: "Silk",
+                season: ["Spring", "Fall", "Winter"],
+                image: "images/wardrobe/black-evening-dress.jpg",
+                matchesWith: [101, 102, 103, 201, 202], // IDs of matching accessories
+                description: "Elegant floor-length black silk dress with subtle shimmer"
+            },
+            {
+                id: 2,
+                name: "Floral Summer Dress",
+                category: "Dresses",
+                color: ["Pink", "Blue", "Floral"],
+                style: ["Casual", "Romantic", "Bohemian"],
+                occasions: ["Daytime", "Brunch", "Garden Party"],
+                material: "Cotton",
+                season: ["Spring", "Summer"],
+                image: "images/wardrobe/floral-summer-dress.jpg",
+                matchesWith: [104, 105, 203, 204],
+                description: "Light and breezy floral print dress with flutter sleeves"
+            },
+            {
+                id: 3,
+                name: "Navy Professional Dress",
+                category: "Dresses",
+                color: "Navy",
+                style: ["Professional", "Classic", "Business"],
+                occasions: ["Work", "Meeting", "Interview"],
+                material: "Wool Blend",
+                season: ["All Season"],
+                image: "images/wardrobe/navy-professional-dress.jpg",
+                matchesWith: [106, 107, 205, 206],
+                description: "Tailored navy dress with subtle pinstripe detail"
+            },
+
+            // Tops
+            {
+                id: 4,
+                name: "White Silk Blouse",
+                category: "Tops",
+                color: "White",
+                style: ["Professional", "Classic", "Versatile"],
+                occasions: ["Work", "Casual", "Evening"],
+                material: "Silk",
+                season: ["All Season"],
+                image: "images/wardrobe/white-silk-blouse.jpg",
+                matchesWith: [301, 302, 303, 207, 208],
+                description: "Classic white silk blouse with pearl buttons"
+            },
+            {
+                id: 5,
+                name: "Cashmere Sweater",
+                category: "Tops",
+                color: "Cream",
+                style: ["Casual", "Luxe", "Cozy"],
+                occasions: ["Casual", "Weekend", "Travel"],
+                material: "Cashmere",
+                season: ["Fall", "Winter"],
+                image: "images/wardrobe/cream-sweater.jpg",
+                matchesWith: [304, 305, 209, 210],
+                description: "Soft cream cashmere sweater with ribbed details"
+            },
+
+            // Bottoms
+            {
+                id: 301,
+                name: "Black Tailored Pants",
+                category: "Bottoms",
+                color: "Black",
+                style: ["Professional", "Classic", "Modern"],
+                occasions: ["Work", "Evening", "Formal"],
+                material: "Wool Blend",
+                season: ["All Season"],
+                image: "images/wardrobe/black-pants.jpg",
+                matchesWith: [4, 5, 211, 212],
+                description: "Classic black tailored pants with perfect fit"
+            },
+            {
+                id: 302,
+                name: "Dark Wash Jeans",
+                category: "Bottoms",
+                color: "Dark Blue",
+                style: ["Casual", "Versatile", "Modern"],
+                occasions: ["Casual", "Weekend", "Travel"],
+                material: "Denim",
+                season: ["All Season"],
+                image: "images/wardrobe/dark-jeans.jpg",
+                matchesWith: [4, 5, 213, 214],
+                description: "Premium dark wash jeans with slight stretch"
+            },
+
+            // Accessories
+            {
+                id: 101,
+                name: "Pearl Necklace",
+                category: "Accessories",
+                color: "Pearl",
+                style: ["Classic", "Elegant", "Formal"],
+                occasions: ["Formal", "Work", "Special Event"],
+                material: "Pearls",
+                season: ["All Season"],
+                image: "images/wardrobe/pearl-necklace.jpg",
+                matchesWith: [1, 3, 4],
+                description: "Classic pearl strand necklace"
+            },
+            {
+                id: 102,
+                name: "Gold Statement Earrings",
+                category: "Accessories",
+                color: "Gold",
+                style: ["Bold", "Glamorous", "Evening"],
+                occasions: ["Party", "Evening", "Special Event"],
+                material: "Gold Plated",
+                season: ["All Season"],
+                image: "images/wardrobe/gold-earrings.jpg",
+                matchesWith: [1, 2, 4],
+                description: "Dramatic gold statement earrings"
+            }
+        ];
+
+        function generateOutfits() {
+            const selectedOccasion = document.querySelector('.occasion-btn.active').dataset.occasion;
+            const outfitDisplay = document.getElementById('outfitDisplay');
+            outfitDisplay.innerHTML = '';
+
+            // Find items suitable for the selected occasion
+            const outfits = generateOccasionOutfits(selectedOccasion);
+            outfits.forEach(outfit => displayOutfit(outfit));
+        }
+
+        function generateOccasionOutfits(occasion) {
+            // Filter main items (tops/dresses) for the occasion
+            const mainItems = wardrobeItems.filter(item => 
+                (item.category === "Dresses" || item.category === "Tops") &&
+                item.occasions.includes(occasion)
+            );
+
+            const outfits = [];
+            
+            // Generate 3 different outfits for the occasion
+            for (let i = 0; i < 3 && i < mainItems.length; i++) {
+                const mainItem = mainItems[i];
+                const matchingItems = findMatchingItems(mainItem, occasion);
+                
+                if (matchingItems.length > 0) {
+                    outfits.push({
+                        occasion: occasion,
+                        mainItem: mainItem,
+                        matchingItems: matchingItems,
+                        description: generateOutfitDescription(mainItem, matchingItems, occasion)
+                    });
+                }
+            }
+
+            return outfits;
+        }
+
+        function findMatchingItems(mainItem, occasion) {
+            return wardrobeItems.filter(item => 
+                mainItem.matchesWith.includes(item.id) &&
+                item.occasions.includes(occasion) &&
+                item.category !== mainItem.category
+            );
+        }
+
+        function generateOutfitDescription(mainItem, matchingItems, occasion) {
+            const occasionDescriptions = {
+                work: "Perfect for a professional work environment",
+                party: "Ideal for evening celebrations and special events",
+                casual: "Great for relaxed weekend activities",
+                formal: "Suitable for formal gatherings and ceremonies",
+                date: "Perfect for a romantic evening out",
+                vacation: "Ideal for vacation activities and sightseeing"
+            };
+
+            return {
+                mainDescription: occasionDescriptions[occasion],
+                styling: `Style ${mainItem.name} with ${matchingItems.map(item => item.name).join(' and ')}`,
+                tips: [
+                    `Perfect for ${occasion} occasions`,
+                    `Best worn during ${Array.isArray(mainItem.season) ? mainItem.season.join(', ') : mainItem.season}`,
+                    `Complete the look with matching accessories`
+                ]
+            };
+        }
+
+        function displayOutfit(outfit) {
+            const outfitDisplay = document.getElementById('outfitDisplay');
+            
+            const outfitElement = document.createElement('div');
+            outfitElement.className = 'outfit-card';
+            
+            outfitElement.innerHTML = `
+                <div class="outfit-header">
+                    <h3>${capitalizeFirst(outfit.occasion)} Outfit</h3>
+                </div>
+                <div class="outfit-items">
+                    <div class="main-item">
+                        <img src="${outfit.mainItem.image}" alt="${outfit.mainItem.name}">
+                        <div class="item-info">
+                            <h4>${outfit.mainItem.name}</h4>
+                            <p>${outfit.mainItem.description}</p>
+                        </div>
+                    </div>
+                    <div class="matching-items">
+                        ${outfit.matchingItems.map(item => `
+                            <div class="matching-item">
+                                <img src="${item.image}" alt="${item.name}">
+                                <div class="item-info">
+                                    <h4>${item.name}</h4>
+                                    <p>${item.description}</p>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="outfit-description">
+                    <p class="main-desc">${outfit.description.mainDescription}</p>
+                    <p class="styling-tip">${outfit.description.styling}</p>
+                    <ul class="styling-tips">
+                        ${outfit.description.tips.map(tip => `<li>${tip}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            outfitDisplay.appendChild(outfitElement);
+        }
+
+        function capitalizeFirst(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Add event listeners for occasion buttons
+        document.querySelectorAll('.occasion-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.occasion-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                generateOutfits();
+            });
+        });
+    </script>
+</body>
+</html> 

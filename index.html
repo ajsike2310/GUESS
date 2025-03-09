@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Style - Smart Wardrobe Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --dark-accent: #333138;
+            --card-shadow: 0 8px 16px rgba(0, 1, 3, 0.1);
+            --hover-shadow: 0 12px 24px rgba(0, 1, 3, 0.15);
+            --red-gradient: linear-gradient(135deg, #FF312E, #FF6B68);
+            --dark-gradient: linear-gradient(135deg, #333138, #515052);
+            --light-gray: #E9ECEF;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background: var(--white);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo span {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .user-profile {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .profile-info:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .profile-pic {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .username {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .profile-info i {
+            font-size: 12px;
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown:hover .profile-info i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dropdown-item i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item span {
+            font-size: 14px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 8px 0;
+        }
+
+        .logout {
+            color: #dc3545;
+        }
+
+        .logout:hover {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .main-container {
+            margin-top: 80px;
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-bar {
+            margin: 2rem auto;
+            position: relative;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+            border: none;
+            border-radius: 16px;
+            background: white;
+            box-shadow: var(--card-shadow);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(81, 80, 82, 0.1);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--red-gradient);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-accent);
+        }
+
+        .feature-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(81, 80, 82, 0.1);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .donate-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--red-gradient);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 49, 46, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .donate-button:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 49, 46, 0.4);
+        }
+
+        .donate-button i {
+            animation: pulse 1.5s infinite;
+            font-size: 1.2rem;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .donation-modal {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(255, 49, 46, 0.1);
+        }
+
+        .donation-progress {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--red-gradient);
+            width: 75%;
+            transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .donation-options {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .donation-option {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--background-color);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(81, 80, 82, 0.1);
+        }
+
+        .donation-option:hover {
+            background: white;
+            transform: translateX(10px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .donation-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .donation-option:hover .donation-icon {
+            transform: scale(1.2);
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1002;
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--dark-gradient);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            color: white;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+        }
+
+        [data-theme="dark"] {
+            --background-color: #000103;
+            --text-color: #FFFFFA;
+            --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .feature-card,
+        [data-theme="dark"] .donation-modal,
+        [data-theme="dark"] .search-input,
+        [data-theme="dark"] .notification {
+            background: var(--dark-accent);
+            border-color: rgba(255, 255, 250, 0.1);
+        }
+
+        [data-theme="dark"] .donation-option {
+            background: #000103;
+            border-color: rgba(255, 255, 250, 0.1);
+        }
+
+        [data-theme="dark"] .donation-option:hover {
+            background: var(--dark-accent);
+        }
+
+        [data-theme="dark"] .search-input {
+            color: var(--text-color);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-item {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 0 15px;
+            }
+
+            .logo span {
+                font-size: 20px;
+            }
+
+            .nav-links {
+                gap: 10px;
+                padding: 0 10px;
+            }
+
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            .profile-pic {
+                width: 34px;
+                height: 34px;
+            }
+
+            .username {
+                display: none;
+            }
+
+            .profile-info {
+                padding: 5px;
+            }
+
+            .profile-info i {
+                display: none;
+            }
+
+            .dropdown-menu {
+                right: -10px;
+            }
+        }
+
+        /* Add a pseudo-element for the dropdown arrow */
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background: var(--white);
+            transform: rotate(45deg);
+            box-shadow: -2px -2px 5px rgba(0,0,0,0.04);
+        }
+
+        /* Add animation for dropdown items */
+        .dropdown-item {
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-tshirt"></i>
+                    <span>e-STYLE</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item active">Home</a>
+                <a href="rental.html" class="nav-item">Rent</a>
+                <a href="wardrobe.html" class="nav-item">My Wardrobe</a>
+                <a href="ai-stylist.html" class="nav-item">AI Stylist</a>
+                <a href="charity.html" class="nav-item">Charity</a>
+            </div>
+            <div class="user-profile">
+                <div class="profile-dropdown">
+                    <div class="profile-info">
+                        <img src="images/profile-pic.avif" alt="Profile" class="profile-pic">
+                        <span class="username"></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-heart"></i>
+                            <span>Favorites</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-history"></i>
+                            <span>Rental History</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search your wardrobe...">
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card" onclick="window.open('wardrobe.html', '_blank')">
+                <i class="fas fa-tshirt feature-icon"></i>
+                <h3 class="feature-title">Wardrobe</h3>
+                <p>Manage your clothing collection</p>
+                
+            </div>
+            <div class="feature-card" onclick="window.open('ai-stylist.html', '_blank')">
+                <i class="fas fa-magic feature-icon"></i>
+                <h3 class="feature-title">AI Stylist</h3>
+                <p>Get personalized outfit recommendations</p>
+                
+            </div>
+            <div class="feature-card" onclick="window.open('rental.html', '_blank')">
+                <i class="fas fa-exchange-alt feature-icon"></i>
+                <h3 class="feature-title">Rent</h3>
+                <p>Share and rent clothing items</p>
+                
+            </div>
+            <div class="feature-card" onclick="window.open('charity.html', '_blank')">
+                <i class="fas fa-hand-holding-heart feature-icon"></i>
+                <h3 class="feature-title">Charity</h3>
+                <p>Make a difference in your community</p>
+                
+            </div>
+        </div>
+    </main>
+
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="donation-modal" id="donationModal">
+        <h2 class="modal-title">Make a Difference</h2>
+        <div class="donation-progress">
+            <p>Your Donation Impact</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p>75% towards your monthly goal</p>
+        </div>
+        <div class="donation-options">
+            <div class="donation-option" onclick="showNotification('Selecting items for donation...', 'success')">
+                <i class="fas fa-plus-circle donation-icon"></i>
+                <div>
+                    <h4>Mark Items for Donation</h4>
+                    <p>Select clothes to donate</p>
+                </div>
+            </div>
+            <div class="donation-option" onclick="showNotification('Finding nearby donation centers...', 'success')">
+                <i class="fas fa-map-marker-alt donation-icon"></i>
+                <div>
+                    <h4>Find Nearby Centers</h4>
+                    <p>Locate donation centers</p>
+                </div>
+            </div>
+            <div class="donation-option" onclick="showNotification('Opening pickup scheduler...', 'success')">
+                <i class="fas fa-truck donation-icon"></i>
+                <div>
+                    <h4>Schedule Pickup</h4>
+                    <p>Arrange donation collection</p>
+                </div>
+            </div>
+            <div class="donation-option" onclick="showNotification('Loading impact dashboard...', 'success')">
+                <i class="fas fa-chart-bar donation-icon"></i>
+                <div>
+                    <h4>View Impact</h4>
+                    <p>See your contribution</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-info-circle"></i>
+        <span id="notification-text"></span>
+    </div>
+
+    <script>
+        function toggleDonationModal() {
+            const modal = document.getElementById('donationModal');
+            modal.classList.toggle('active');
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('donationModal');
+            const donateButton = document.querySelector('.donate-button');
+            
+            if (modal.classList.contains('active') && 
+                !modal.contains(e.target) && 
+                !donateButton.contains(e.target)) {
+                modal.classList.remove('active');
+            }
+        });
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notification.className = 'notification ' + type;
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle i');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggle.className = 'fas fa-moon';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.className = 'fas fa-sun';
+            }
+        }
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            if (searchTerm.length > 0) {
+                showNotification('Searching wardrobe...', 'success');
+            }
+        });
+
+        // Add loading states to feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.opacity = '0.7';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                }, 300);
+            });
+        });
+
+        // Update user name in the profile section
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName');
+            if (userName) {
+                // Update the username display in the navbar
+                const usernameElement = document.querySelector('.username');
+                if (usernameElement) {
+                    usernameElement.textContent = userName;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

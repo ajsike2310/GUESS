@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charity - StyleSwap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Include the same root variables and basic styles from index.html */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --background-color: #f9f9f9;
+            --text-color: #000103;
+            --dark-accent: #333138;
+            --card-shadow: 0 8px 16px rgba(0, 1, 3, 0.1);
+            --hover-shadow: 0 12px 24px rgba(0, 1, 3, 0.15);
+            --red-gradient: linear-gradient(135deg, #FF312E, #FF6B68);
+            --dark-gradient: linear-gradient(135deg, #333138, #515052);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background: var(--white);
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #81C784;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .logo span {
+            background:  var(--primary-color);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .user-profile {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 15px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .profile-info:hover {
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        .profile-pic {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .username {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .profile-info i {
+            font-size: 12px;
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown:hover .profile-info i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 220px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-item span {
+            font-size: 14px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #eee;
+            margin: 8px 0;
+        }
+
+        .logout {
+            color: #dc3545;
+        }
+
+        .logout:hover {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background: var(--white);
+            transform: rotate(45deg);
+            box-shadow: -2px -2px 5px rgba(0,0,0,0.04);
+        }
+
+        /* Update main content margin */
+        .main-container {
+            margin-top: 80px;
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 100px);
+        }
+
+        .charity-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+
+        .charity-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-accent);
+            margin-bottom: 1rem;
+        }
+
+        .charity-header p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .find-bins-btn {
+            background: var(--red-gradient);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem auto;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+        }
+
+        .find-bins-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .find-bins-btn i {
+            font-size: 1.4rem;
+        }
+
+        .donation-bins-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto 4rem auto;
+            padding: 2rem;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: var(--card-shadow);
+        }
+
+        .modal-content h2 {
+            color: var(--dark-accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+
+        #binsMap {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            margin-top: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .bin-list {
+            margin-top: 2rem;
+            display: grid;
+            gap: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .bin-item {
+            background: var(--background-color);
+            padding: 1.2rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .bin-item:hover {
+            transform: translateX(10px);
+        }
+
+        .bin-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--dark-accent);
+        }
+
+        .bin-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .get-directions {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .get-directions:hover {
+            color: var(--secondary-color);
+        }
+
+        .bin-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .bin-list::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .bin-list::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .bin-list::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .charity-header h1 {
+                font-size: 2rem;
+            }
+
+            .find-bins-btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            #binsMap {
+                height: 300px;
+            }
+
+            .username {
+                display: none;
+            }
+
+            .profile-info {
+                padding: 5px;
+            }
+
+            .profile-info i {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-item {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <a href="index.html">
+                    <i class="fas fa-tshirt"></i>
+                    <span>e-STYLE</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="rental.html" class="nav-item">Rent</a>
+                <a href="wardrobe.html" class="nav-item">My Wardrobe</a>
+                <a href="ai-stylist.html" class="nav-item">AI Stylist</a>
+                <a href="charity.html" class="nav-item active">Charity</a>
+            </div>
+            <div class="user-profile">
+                <div class="profile-dropdown">
+                    <div class="profile-info">
+                        <img src="images/profile-pic.avif" alt="Profile" class="profile-pic">
+                        <span class="username"></span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-heart"></i>
+                            <span>Favorites</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-history"></i>
+                            <span>Rental History</span>
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="charity-header">
+            <h1>Donate Your Clothes</h1>
+            <p>Make a positive impact in your community by donating your gently used clothing. 
+               Find the nearest donation bin and help those in need while promoting sustainable fashion.</p>
+            <button class="find-bins-btn" onclick="showDonationBins()">
+                <i class="fas fa-map-marker-alt"></i>
+                Find Nearby Donation Bins
+            </button>
+        </div>
+    </main>
+
+    <!-- Donation Bins Modal -->
+    <div class="donation-bins-modal" id="donationBinsModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeDonationBins()">&times;</span>
+            <h2>Nearby Donation Bins</h2>
+            <div id="binsMap"></div>
+            <div class="bin-list">
+                <!-- Bin locations will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+    <script>
+        // Sample donation bin locations
+        const donationBins = [
+            {
+                name: "Community Center Bin",
+                address: "123 Main St, City",
+                coordinates: { lat: 40.7128, lng: -74.0060 }
+            },
+            {
+                name: "Shopping Mall Bin",
+                address: "456 Market St, City",
+                coordinates: { lat: 40.7589, lng: -73.9851 }
+            },
+            {
+                name: "Local Church Bin",
+                address: "789 Church St, City",
+                coordinates: { lat: 40.7549, lng: -73.9840 }
+            }
+        ];
+
+        function showDonationBins() {
+            document.getElementById('donationBinsModal').style.display = 'block';
+            initBinsMap();
+        }
+
+        function closeDonationBins() {
+            document.getElementById('donationBinsModal').style.display = 'none';
+        }
+
+        function initBinsMap() {
+            const map = new google.maps.Map(document.getElementById('binsMap'), {
+                center: donationBins[0].coordinates,
+                zoom: 12
+            });
+
+            // Add markers and populate bin list
+            const binList = document.querySelector('.bin-list');
+            binList.innerHTML = ''; // Clear existing items
+
+            donationBins.forEach(bin => {
+                // Add marker
+                new google.maps.Marker({
+                    position: bin.coordinates,
+                    map: map,
+                    title: bin.name
+                });
+
+                // Add to list
+                binList.innerHTML += `
+                    <div class="bin-item">
+                        <div class="bin-info">
+                            <h3>${bin.name}</h3>
+                            <p>${bin.address}</p>
+                        </div>
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=${bin.coordinates.lat},${bin.coordinates.lng}" 
+                           class="get-directions" target="_blank">
+                            <i class="fas fa-directions"></i>
+                            Get Directions
+                        </a>
+                    </div>
+                `;
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('donationBinsModal')) {
+                closeDonationBins();
+            }
+        }
+    </script>
+</body>
+</html> 
